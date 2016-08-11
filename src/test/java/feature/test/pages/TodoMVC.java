@@ -22,96 +22,96 @@ import static com.codeborne.selenide.WebDriverRunner.url;
  */
 public class TodoMVC {
 
-    public ElementsCollection tasks = $$("#todo-list li");
+    private static ElementsCollection tasks = $$("#todo-list li");
 
-    public SelenideElement newTodo = $("#new-todo");
+    private static SelenideElement newTodo = $("#new-todo");
 
     @Step
-    public void clearCompleted() {
+    public static void clearCompleted() {
         $("#clear-completed").click();
     }
 
     @Step
-    public void add(String... taskTexts) {
+    public static void add(String... taskTexts) {
         for (String text : taskTexts) {
             newTodo.setValue(text).pressEnter();
         }
     }
 
 
-    public void delete(String taskText) {
+    public static void delete(String taskText) {
         tasks.find(exactText(taskText)).hover().$(".destroy").click();
     }
 
-    public void toggle(String taskText) {
+    public static void toggle(String taskText) {
         tasks.find(exactText(taskText)).$(".toggle").click();
     }
 
-    public void toggleAll() {
+    public static void toggleAll() {
         $("#toggle-all").click();
     }
 
-    public void assertTasksAre(String... taskTexts) {
+    public static void assertTasksAre(String... taskTexts) {
         tasks.shouldHave(exactTexts(taskTexts));
     }
 
-    public void assertNoTasks() {
+    public static void assertNoTasks() {
         tasks.shouldBe(empty);
     }
 
-    public SelenideElement startEdit(String oldTaskText, String newTaskText) {
+    public static SelenideElement startEdit(String oldTaskText, String newTaskText) {
         tasks.find(exactText(oldTaskText)).doubleClick();
         return tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
-    public void cancelEdit(String oldTaskText, String newTaskText) {
+    public static void cancelEdit(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressEscape();
     }
 
-    public void confirmEditByPressTab(String oldTaskText, String newTaskText) {
+    public static void confirmEditByPressTab(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressTab();
     }
 
-    public void confirmEditByClickOutside(String oldTaskText, String newTaskText) {
+    public static void confirmEditByClickOutside(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText);
         newTodo.click();
     }
 
-    public void edit(String oldTaskText, String newTaskText) {
+    public static void edit(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressEnter();
     }
 
-    public void filterActive() {
+    public static void filterActive() {
         $(By.linkText("Active")).click();
     }
 
-    public void filterCompleted() {
+    public static void filterCompleted() {
         $(By.linkText("Completed")).click();
     }
 
-    public void filterAll() {
+    public static void filterAll() {
         $(By.linkText("All")).click();
     }
 
-    public void assertItemsLeft(Integer count) {
+    public static void assertItemsLeft(Integer count) {
         $("#todo-count>strong").shouldHave(exactText((count.toString())));
     }
 
-    public void assertNoVisibleTasks() {
+    public static void assertNoVisibleTasks() {
         tasks.filter(visible).shouldBe(empty);
     }
 
-    public void assertVisibleTasksAre(String... taskTexts) {
+    public static void assertVisibleTasksAre(String... taskTexts) {
         tasks.filter(visible).shouldHave(exactTexts(taskTexts));
     }
 
-    public void ensureAppIsOpened() {
+    public static void ensureAppIsOpened() {
         if (!(url().equals("https://todomvc4tasj.herokuapp.com"))) {
             open("https://todomvc4tasj.herokuapp.com");
         }
     }
 
-    public void given(Task... tasks) {
+    public static void given(Task... tasks) {
         ensureAppIsOpened();
         List<String> taskList = new ArrayList<>();
         for (Task task : tasks) {
@@ -121,17 +121,17 @@ public class TodoMVC {
         refresh();
     }
 
-    public void givenAtActive(Task... tasks) {
+    public static void givenAtActive(Task... tasks) {
         given(tasks);
         filterActive();
     }
 
-    public void givenAtCompleted(Task... tasks) {
+    public static void givenAtCompleted(Task... tasks) {
         given(tasks);
         filterCompleted();
     }
 
-    public Task[] aTasks(TaskType taskType, String... taskText) {
+    public static Task[] aTasks(TaskType taskType, String... taskText) {
         Task[] tasks = new Task[taskText.length];
         for (int i = 0; i < taskText.length; i++) {
             tasks[i] = new Task(taskType, taskText[i]);
@@ -139,23 +139,23 @@ public class TodoMVC {
         return tasks;
     }
 
-    public Task aTask(TaskType taskType, String taskText) {
+    public static Task aTask(TaskType taskType, String taskText) {
         return new Task(taskType, taskText);
     }
 
-    public void givenAtActive(TaskType taskType, String... taskText) {
+    public static void givenAtActive(TaskType taskType, String... taskText) {
         givenAtActive(aTasks(taskType, taskText));
     }
 
-    public void givenAtAll(TaskType taskType, String... taskText) {
+    public static void givenAtAll(TaskType taskType, String... taskText) {
         given(aTasks(taskType, taskText));
     }
 
-    public void givenAtCompleted(TaskType taskType, String... taskText) {
+    public static void givenAtCompleted(TaskType taskType, String... taskText) {
         givenAtCompleted(aTasks(taskType, taskText));
     }
 
-    public class Task {
+    public static class Task {
         public String taskText;
         public TaskType taskType;
 
@@ -184,7 +184,5 @@ public class TodoMVC {
         TaskType(String taskStatus) {
             this.taskStatus = taskStatus;
         }
-
-
     }
 }
