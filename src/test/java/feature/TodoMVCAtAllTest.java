@@ -1,21 +1,19 @@
-package feature.test;
+package feature;
 
-import feature.test.pages.TodoMVC;
+import feature.pages.TodoMVC;
 import org.junit.Test;
 
-import static feature.test.pages.TodoMVC.TaskType.ACTIVE;
-import static feature.test.pages.TodoMVC.TaskType.COMPLETED;
-import static feature.test.pages.TodoMVC.*;
+import static feature.pages.TodoMVC.*;
 
 
 /**
  * Created by barocko on 8/10/2016.
  */
-public class TodoMVCAtAll extends BaseTest {
+public class TodoMVCAtAllTest extends BaseTest {
 
     @Test
     public void testEdit() {
-        givenAtAll(ACTIVE, "1", "2");
+        givenAtAll(TaskType.ACTIVE, "1", "2");
 
         edit("1", "1 edited");
 
@@ -25,7 +23,7 @@ public class TodoMVCAtAll extends BaseTest {
 
     @Test
     public void testDelete() {
-        givenAtAll(COMPLETED, "1");
+        givenAtAll(TaskType.COMPLETED, "1");
 
         delete("1");
 
@@ -34,7 +32,7 @@ public class TodoMVCAtAll extends BaseTest {
 
     @Test
     public void testCompleteAll() {
-        givenAtAll(ACTIVE, "1", "2");
+        givenAtAll(TaskType.ACTIVE, "1", "2");
 
         toggleAll();
 
@@ -44,7 +42,7 @@ public class TodoMVCAtAll extends BaseTest {
 
     @Test
     public void testClearCompleted() {
-        given(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
+        given(aTask(TaskType.COMPLETED, "1"), aTask(TaskType.ACTIVE, "2"));
 
         clearCompleted();
 
@@ -54,7 +52,7 @@ public class TodoMVCAtAll extends BaseTest {
 
     @Test
     public void testSwitchFilterToCompleted() {
-        given(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
+        given(aTask(TaskType.COMPLETED, "1"), aTask(TaskType.ACTIVE, "2"));
 
         filterCompleted();
 
@@ -64,7 +62,7 @@ public class TodoMVCAtAll extends BaseTest {
 
     @Test
     public void testCancelEdit() {
-        givenAtAll(ACTIVE, "1");
+        givenAtAll(TaskType.ACTIVE, "1");
 
         cancelEdit("1", "1 editing");
 
@@ -74,7 +72,7 @@ public class TodoMVCAtAll extends BaseTest {
 
     @Test
     public void testReopen() {
-        givenAtAll(COMPLETED, "1");
+        givenAtAll(TaskType.COMPLETED, "1");
 
         toggle("1");
 
@@ -84,7 +82,7 @@ public class TodoMVCAtAll extends BaseTest {
 
     @Test
     public void testConfirmEditByPressTab() {
-        givenAtAll(COMPLETED, "1");
+        givenAtAll(TaskType.COMPLETED, "1");
 
         confirmEditByPressTab("1", "1 edited");
 

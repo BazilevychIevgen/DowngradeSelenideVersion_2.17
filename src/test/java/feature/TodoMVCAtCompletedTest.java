@@ -1,21 +1,19 @@
-package feature.test;
+package feature;
 
-import feature.test.pages.TodoMVC;
+import feature.pages.TodoMVC;
 import org.junit.Test;
 
-import static feature.test.pages.TodoMVC.TaskType.ACTIVE;
-import static feature.test.pages.TodoMVC.TaskType.COMPLETED;
-import static feature.test.pages.TodoMVC.*;
+import static feature.pages.TodoMVC.*;
 
 
 /**
  * Created by barocko on 8/10/2016.
  */
-public class TodoMVCAtCompleted extends BaseTest {
+public class TodoMVCAtCompletedTest extends BaseTest {
 
     @Test
     public void testEdit() {
-        givenAtCompleted(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
+        givenAtCompleted(aTask(TaskType.COMPLETED, "1"), aTask(TaskType.ACTIVE, "2"));
 
         edit("1", "1 edited");
 
@@ -25,7 +23,7 @@ public class TodoMVCAtCompleted extends BaseTest {
 
     @Test
     public void testDelete() {
-        givenAtCompleted(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
+        givenAtCompleted(aTask(TaskType.COMPLETED, "1"), aTask(TaskType.ACTIVE, "2"));
 
         delete("1");
 
@@ -35,7 +33,7 @@ public class TodoMVCAtCompleted extends BaseTest {
 
     @Test
     public void testSwitchToActiveFilter() {
-        givenAtCompleted(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
+        givenAtCompleted(aTask(TaskType.COMPLETED, "1"), aTask(TaskType.ACTIVE, "2"));
 
         filterActive();
 
@@ -45,7 +43,7 @@ public class TodoMVCAtCompleted extends BaseTest {
 
     @Test
     public void testCancelEdit() {
-        givenAtCompleted(aTask(ACTIVE, "1"), aTask(COMPLETED, "2"));
+        givenAtCompleted(aTask(TaskType.ACTIVE, "1"), aTask(TaskType.COMPLETED, "2"));
 
         cancelEdit("2", "to be canceled");
 
@@ -55,7 +53,7 @@ public class TodoMVCAtCompleted extends BaseTest {
 
     @Test
     public void testConfirmEditByClickOutside() {
-        givenAtCompleted(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
+        givenAtCompleted(aTask(TaskType.COMPLETED, "1"), aTask(TaskType.ACTIVE, "2"));
 
         confirmEditByClickOutside("1", "1 edited");
 
@@ -65,7 +63,7 @@ public class TodoMVCAtCompleted extends BaseTest {
 
     @Test
     public void testReopenAll() {
-        givenAtCompleted(COMPLETED, "1", "2");
+        givenAtCompleted(TaskType.COMPLETED, "1", "2");
 
         toggleAll();
 

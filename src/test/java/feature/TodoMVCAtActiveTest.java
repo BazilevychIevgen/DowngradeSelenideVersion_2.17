@@ -1,22 +1,22 @@
-package feature.test;
+package feature;
 
-import feature.test.pages.TodoMVC;
-import feature.test.pages.TodoMVC;
+import feature.pages.TodoMVC;
 import org.junit.Test;
 
-import static feature.test.pages.TodoMVC.TaskType.ACTIVE;
-import static feature.test.pages.TodoMVC.TaskType.COMPLETED;
-import static feature.test.pages.TodoMVC.*;
+import static feature.pages.TodoMVC.TaskType.ACTIVE;
+import static feature.pages.TodoMVC.TaskType.COMPLETED;
+import static feature.pages.TodoMVC.aTask;
+import static feature.pages.TodoMVC.*;
 
 
 /**
  * Created by barocko on 8/10/2016.
  */
-public class TodoMVCAtActive extends BaseTest {
+public class TodoMVCAtActiveTest extends BaseTest {
 
     @Test
     public void testEdit() {
-        TodoMVC.givenAtActive(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
+        givenAtActive(aTask(COMPLETED, "1"), aTask(ACTIVE, "2"));
 
         edit("2", "2 edited");
 

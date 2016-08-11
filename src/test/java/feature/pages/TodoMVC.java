@@ -1,4 +1,4 @@
-package feature.test.pages;
+package feature.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
