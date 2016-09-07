@@ -3,6 +3,7 @@ package feature.pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class TodoMVC {
 
 
     public static void delete(String taskText) {
-        tasks.find(exactText(taskText)).hover().$(".destroy").click();
+        tasks.find(exactText(taskText)).hover();
+        tasks.find(exactText(taskText)).$(".destroy").click();
     }
 
     public static void toggle(String taskText) {
@@ -60,12 +62,12 @@ public class TodoMVC {
     }
 
     public static SelenideElement startEdit(String oldTaskText, String newTaskText) {
-        tasks.find(exactText(oldTaskText)).doubleClick();
+        actions().doubleClick(tasks.find(exactText(oldTaskText)).find("label")).perform();
         return tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
     public static void cancelEdit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText, newTaskText).pressEscape();
+        startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
     }
 
     public static void confirmEditByPressTab(String oldTaskText, String newTaskText) {

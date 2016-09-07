@@ -6,6 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Attachment;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -31,7 +35,7 @@ public class TodoMVCTest  {
 
     @After
     public void tearDown() throws IOException {
-        File lastSelenideScreenshot = Screenshots.getLastScreenshot();
+        File lastSelenideScreenshot = Screenshots.getScreenShotAsFile();
         if (lastSelenideScreenshot != null) {
             screenshot(Files.toByteArray(lastSelenideScreenshot));
         }
@@ -117,13 +121,13 @@ public class TodoMVCTest  {
 
     @Step
     private SelenideElement startEdit(String oldTaskText, String newTaskText) {
-        tasks.find(exactText(oldTaskText)).doubleClick();
+        actions().doubleClick(tasks.find(exactText(oldTaskText)).find("label")).perform();
         return tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
     @Step
     private void cancelEdit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText, newTaskText).pressEscape();
+        startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
     }
 
     @Step
