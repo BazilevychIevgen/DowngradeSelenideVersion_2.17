@@ -23,6 +23,7 @@ import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static helpers.Helpers.doubleClick;
 
 /**
  * Created by barocko on 7/9/2016.
@@ -96,7 +97,8 @@ public class TodoMVCTest  {
 
     @Step
     private void delete(String taskText) {
-        tasks.find(exactText(taskText)).hover().$(".destroy").click();
+        tasks.find(exactText(taskText)).hover();
+        tasks.find(exactText(taskText)).$(".destroy").click();
     }
 
     @Step
@@ -121,7 +123,7 @@ public class TodoMVCTest  {
 
     @Step
     private SelenideElement startEdit(String oldTaskText, String newTaskText) {
-        actions().doubleClick(tasks.find(exactText(oldTaskText)).find("label")).perform();
+        doubleClick(tasks.find(exactText(oldTaskText)).find("label"));
         return tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 

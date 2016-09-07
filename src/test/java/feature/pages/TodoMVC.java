@@ -17,6 +17,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.refresh;
 import static com.codeborne.selenide.WebDriverRunner.url;
+import static helpers.Helpers.doubleClick;
 
 /**
  * Created by barocko on 8/10/2016.
@@ -38,7 +39,6 @@ public class TodoMVC {
             newTodo.setValue(text).pressEnter();
         }
     }
-
 
     public static void delete(String taskText) {
         tasks.find(exactText(taskText)).hover();
@@ -62,7 +62,7 @@ public class TodoMVC {
     }
 
     public static SelenideElement startEdit(String oldTaskText, String newTaskText) {
-        actions().doubleClick(tasks.find(exactText(oldTaskText)).find("label")).perform();
+        doubleClick(tasks.find(exactText(oldTaskText)).find("label"));
         return tasks.find(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
